@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
+@RequestMapping("/api/v1/todo") //this is parent URL
 public class Todo {
         private static List<Response> todoList;
         public Todo(){
@@ -18,20 +20,20 @@ public class Todo {
         }
         //ResponseEntity: it is a class that help to return manual response like ResponseEntity.Status(HttpStatus.ok)
 // Getting data from "todoList"
-        @GetMapping("/todoList")
+        @GetMapping
         public ResponseEntity<List<Response>> getTodo(){
             return ResponseEntity.ok(todoList);
         }
 // Getting data form user and set it in the "todoList"
-        @PostMapping("/todos")
+        @PostMapping
         public ResponseEntity <Response> createTodo(@RequestBody Response newTodo){
             todoList.add(newTodo);
             return ResponseEntity.status(HttpStatus.CREATED).body(newTodo);
         }
 
         //---------------- Variable URL ----------------------
-
-    @GetMapping("/todoList/{todoId}")
+// H/W try to return JSON like{ message: data not avilable} when data not found
+    @GetMapping("/{todoId}")
     public ResponseEntity <Response> getTodoById(@PathVariable Long todoId){
             for(Response todo : todoList){
                 if(todo.getId() == todoId){
