@@ -3,6 +3,8 @@ package com.example.TodoApi;
 import java.util.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -19,6 +21,12 @@ public class Todo {
         @GetMapping("/todoList")
         public List<Response> getTodo(){
             return todoList;
+        }
+
+        @PostMapping("/todos")
+        public Response createTodo(@RequestBody Response newTodo){
+            todoList.add(newTodo);
+            return newTodo;
         }
 
 
