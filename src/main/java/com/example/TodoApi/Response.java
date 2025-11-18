@@ -1,31 +1,33 @@
 package com.example.TodoApi;
 
 public class Response{
-	private int id;
-	private boolean completed;
-	private String title;
-	private int userId;
+	private Long id=null;
+	private Boolean completed=null;
+	private String title=null;
+	private Long userId=null;
+	private String message=null;
 
-	public Response(int id, boolean completed, String title, int userId){
+
+	public Response(Long id, Boolean completed, String title, Long userId){
 		this.id=id;
 		this.completed=completed;
 		this.title=title;
 		this.userId=userId;
 	}
 
-	public void setId(int id){
+	public void setId(Long id){
 		this.id = id;
 	}
 
-	public int getId(){
+	public Long getId(){
 		return id;
 	}
 
-	public void setCompleted(boolean completed){
+	public void setCompleted(Boolean completed){
 		this.completed = completed;
 	}
 
-	public boolean isCompleted(){
+	public Boolean isCompleted(){
 		return completed;
 	}
 
@@ -37,13 +39,14 @@ public class Response{
 		return title;
 	}
 
-	public void setUserId(int userId){
+	public void setUserId(Long userId){
 		this.userId = userId;
 	}
 
-	public int getUserId(){
+	public Long getUserId(){
 		return userId;
 	}
+
 
 	@Override
  	public String toString(){
