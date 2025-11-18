@@ -2,6 +2,8 @@ package com.example.TodoApi;
 
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,20 +11,35 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/todo") //this is parent URL
-public class Todo {
+public class TodoController {
+
+
+        private  TodoService  todoService;
+
+        private  TodoService todoService2;
+
         private static List<Response> todoList;
-        public Todo(){
+
+        public TodoController(
+                @Qualifier("FakeTodoService") TodoService todoService,
+                @Qualifier("RealTodoService")  TodoService todoService2){
+
+            this.todoService=todoService;
+            this.todoService2=todoService2;
             todoList= new ArrayList<>();
             todoList.add(new Response(1l, false, "gym", 11l));
             todoList.add(new Response(2l, false, "reading", 12l));
             todoList.add(new Response(3l, false, "writting", 13l));
 
         }
-        //ResponseEntity: it is a class that help to return manual response like ResponseEntity.Status(HttpStatus.ok)
+//ResponseEntity: it is a class that help to return manual response like ResponseEntity.Status(HttpStatus.ok)
 // Getting data from "todoList"
+
+    //public ResponseEntity<List<Response>> getTodo(@RequestParam(required = false ,defaultValue="true") Boolean completed){}
         @GetMapping
-        public ResponseEntity<List<Response>> getTodo(@RequestParam(required = false ,defaultValue="true") boolean completed){
-            System.out.println("isCompleted: " + completed);
+        public ResponseEntity<List<Response>> getTodo(@RequestParam(required = false ) Boolean completed){
+            System.out.println("isCompleted: " + completed + this.todoService.doSomething());
+            System.out.println(this.todoService2.doSomething());
             return ResponseEntity.ok(todoList);
         }
 // Getting data form user and set it in the "todoList"
